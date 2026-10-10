@@ -25,7 +25,7 @@ und die erste Repository-Historie bleiben erhalten.
 ## Bot und Backend
 
 [Geprüfter Quellstand als Archiv](nexora-source.zip) enthält den Bot, das lokale
-OAuth-Dashboard und Tests mit separater Runtime-Konfiguration. 97 Tests bestanden.
+OAuth-Dashboard und Tests mit separater Runtime-Konfiguration. 99 Tests bestanden.
 Die Offline-Metadaten von ThePrisons sind ausdrücklich als Snapshot gekennzeichnet.
 Keine Credentials, Datenbanken oder Laufzeitdateien enthalten.
 
