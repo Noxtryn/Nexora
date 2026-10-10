@@ -59,7 +59,23 @@ reviewButton.onclick = async () => {
             link.click();
             setTimeout(() => URL.revokeObjectURL(url), 1000);
         };
-        reviewDialog.append(download, node('p', 'Vorschau gespeichert. Keine Live-Anwendung und kein Discord-Post.', 'hint'));
+        reviewDialog.append(download);
+        if(proposal.live_apply_available && !proposal.simulation && !proposal.blocking.length){
+            const consent=node('label','Diesen konkreten Plan für Discord ausdrücklich freigeben.');
+            const box=node('input');box.type='checkbox';consent.prepend(box);
+            const scheduleLabel=node('label','Optionaler Termin (deine Zeitzone, maximal sieben Tage)');
+            const schedule=node('input');schedule.type='datetime-local';scheduleLabel.append(schedule);
+            const apply=node('button','Plan freigeben und einreihen','primary');apply.disabled=true;
+            box.onchange=()=>apply.disabled=!box.checked;
+            apply.onclick=async()=>{apply.disabled=true;try{
+                const body={digest:proposal.digest,revision:proposal.revision};
+                if(schedule.value)body.scheduled_at=new Date(schedule.value).getTime()/1000;
+                const job=await api('/api/approve',{method:'POST',body:JSON.stringify(body)});
+                reviewDialog.append(node('p','Auftrag '+job.id.slice(0,12)+' · '+job.status+'. Status unter Aufträge prüfen.'));
+                consent.remove();apply.remove();scheduleLabel.remove();
+            }catch(error){toast(error.message,true);apply.disabled=!box.checked}};
+            reviewDialog.append(scheduleLabel,consent,apply);
+        }else reviewDialog.append(node('p','Live-Anwendung ist gesperrt. Vorschauen ändern Discord nicht.','hint'));
         reviewDialog.showModal();
     } catch (error) {
         toast(error.message, true);

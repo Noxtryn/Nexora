@@ -25,7 +25,7 @@ und die erste Repository-Historie bleiben erhalten.
 ## Bot und Backend
 
 [Geprüfter Quellstand als Archiv](nexora-source.zip) enthält den Bot, das lokale
-OAuth-Dashboard und Tests mit separater Runtime-Konfiguration. 113 Tests bestanden.
+OAuth-Dashboard und Tests mit separater Runtime-Konfiguration. 141 Tests ausgeführt: 140 bestanden, ein echter PostgreSQL-Test ohne Testverbindung ausgesetzt.
 Die Offline-Metadaten von ThePrisons sind ausdrücklich als Snapshot gekennzeichnet.
 Keine Credentials, Datenbanken oder Laufzeitdateien enthalten.
 
@@ -35,8 +35,7 @@ Freigabe gesperrt. Eine Website-Veröffentlichung aktiviert sie nicht.
 ## Backend ohne Docker und ohne eigene Domain
 
 Native Python-Runtime auf Render, Frankfurt, Free-Tarif. HTTPS-Healthcheck und
-OAuth-Weiterleitung geprüft. Ein vollständiger Login mit einem echten Benutzer
-wurde noch nicht bestätigt. [Einrichtung und Einschränkungen](BACKEND-SETUP.md).
+OAuth-Weiterleitung geprüft. Ein vollständiger Discord-Login wurde vom Benutzer bestätigt. [Einrichtung und Einschränkungen](BACKEND-SETUP.md).
 Free-Hosting sperrt das Speichern, bis dauerhafter Datenspeicher eingerichtet ist.
 Die Design-Vorschau speichert ihre Beispiele weiterhin nur im jeweiligen Browser.
 
@@ -44,3 +43,4 @@ Die Design-Vorschau speichert ihre Beispiele weiterhin nur im jeweiligen Browser
 ## Betriebsfunktionen
 
 Ticketübersicht mit Mod-Filter, Release-Ansichten, Konfigurationsbackup und Verbindungsprüfung sind implementiert. Der Bot unterstützt den Spielstatus `mastering NEXORA`, einen Dashboard-Link bei `/status` und sichere Member-Autorollen. PostgreSQL und die ausgehende Windows-Agent-Verbindung sind vorbereitet; Datenbank und Verbindungsschlüssel müssen noch eingerichtet werden. Details und verbleibende Ausbaustufen: [FEATURES-SETUP.md](FEATURES-SETUP.md).
+

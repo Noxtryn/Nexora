@@ -27,6 +27,7 @@ window.nexoraPreviewRequest = async (path, options = {}) => {
     if (path === '/api/status') return previewResponse({health: {status: 'unknown', age_seconds: null, latency_ms: null}, live_changes_enabled: false, modules, scopes: ['community', 'theprisons', 'sky-supra']});
     if (path === '/api/operations') return previewResponse({presence:'mastering NEXORA',checks:[{name:'Design-Vorschau',ready:true,detail:'Daten liegen nur in diesem Browser'},{name:'Live-Verbindung',ready:false,detail:'Für echte Daten mit Discord anmelden'}]});
     if (path === '/api/tickets') return previewResponse({available:false,tickets:[],reason:'Private Tickets sind nur im geschützten Dashboard zugänglich.'});
+    if (path === '/api/jobs') return previewResponse({enabled:false,jobs:[]});
     if (path.startsWith('/api/releases/')) return previewResponse({detail:'Für echte Release-Daten mit Discord anmelden.'},503);
     if (path === '/api/backup') {
         const drafts=[];

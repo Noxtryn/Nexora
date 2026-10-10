@@ -13,7 +13,7 @@ async function loadTickets(){
  const query=$('ticket-search').value.trim().toLowerCase();const mod=$('ticket-mod').value;
  const items=data.tickets.filter(t=>(!mod||t.mod===mod)&&(!query||[t.name,t.requester_id,t.kind].some(v=>v.toLowerCase().includes(query))));
  target.append(node('p',items.length+' passende Tickets'));
- for(const ticket of items){const row=node('div',undefined,'audit-row');const details=node('div',names[ticket.mod]+' · '+ticket.kind);details.append(node('small',ticket.name+' · Ersteller '+ticket.requester_id));const link=node('a','In Discord öffnen ↗','secondary');link.href=ticket.url;link.target='_blank';link.rel='noopener noreferrer';row.append(details,link);target.append(row)}
+ for(const ticket of items){const row=node('div',undefined,'audit-row');const details=node('div',names[ticket.mod]+' · '+ticket.kind+' · '+(ticket.status==='closed'?'Archiviert':'Offen'));details.append(node('small',ticket.name+' · Ersteller '+ticket.requester_id));const link=node('a','In Discord öffnen ↗','secondary');link.href=ticket.url;link.target='_blank';link.rel='noopener noreferrer';const manage=node('button','Verwalten','secondary');manage.onclick=()=>manageTicket(ticket);row.append(details,link,manage);target.append(row)}
  }catch(error){target.replaceChildren(node('p',error.message))}
 }
 async function loadRelease(){
