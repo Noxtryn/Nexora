@@ -56,12 +56,25 @@ window.nexoraPreviewRequest = async (path, options = {}) => {
     }
     return previewResponse({detail: 'Aktion in der Vorschau nicht verfügbar.'}, 405);
 };
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const login = document.querySelector('.login-link');
     login.href = '#';
     login.setAttribute('aria-disabled', 'true');
     login.addEventListener('click', event => {
+        if (login.getAttribute('aria-disabled') === 'false') return;
         event.preventDefault();
         document.getElementById('login-note').textContent = 'Für echten Discord-Login muss zuerst das Backend mit HTTPS verbunden werden. Du kannst die Design-Vorschau öffnen.';
     });
+    try {
+        const response = await fetch('./backend.json', {cache: 'no-store'});
+        if (!response.ok) return;
+        const config = await response.json();
+        if (typeof config.origin !== 'string') return;
+        const origin = new URL(config.origin);
+        if (origin.protocol !== 'https:' || origin.username || origin.password || origin.pathname !== '/' || origin.search || origin.hash) return;
+        login.href = origin.origin + '/auth/login';
+        login.textContent = 'Mit Discord anmelden ↗';
+        login.setAttribute('aria-disabled', 'false');
+        document.getElementById('login-note').textContent = 'Die Anmeldung öffnet das geschützte Nexora-Dashboard. Die Design-Vorschau bleibt hier verfügbar.';
+    } catch { /* Missing configuration keeps the preview usable. */ }
 });

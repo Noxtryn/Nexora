@@ -1,0 +1,14 @@
+# Login validation on the free tier; no database writes or Discord writes.
+services:
+  - type: web
+    name: nexora-control
+    runtime: python
+    plan: free
+    buildCommand: python prepare-backend.py
+    startCommand: cd backend/discord-bot && python -m prisonsbot.dashboard --host 0.0.0.0
+    healthCheckPath: /healthz
+    envVars:
+      - key: DISCORD_OAUTH_CLIENT_SECRET
+        sync: false
+      - key: NEXORA_READONLY
+        value: "1"
