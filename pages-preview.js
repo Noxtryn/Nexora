@@ -28,6 +28,17 @@ window.nexoraPreviewRequest = async (path, options = {}) => {
     if (path === '/api/operations') return previewResponse({presence:'mastering NEXORA',checks:[{name:'Design-Vorschau',ready:true,detail:'Daten liegen nur in diesem Browser'},{name:'Live-Verbindung',ready:false,detail:'Für echte Daten mit Discord anmelden'}]});
     if (path === '/api/tickets') return previewResponse({available:false,tickets:[],reason:'Private Tickets sind nur im geschützten Dashboard zugänglich.'});
     if (path === '/api/jobs') return previewResponse({enabled:false,jobs:[]});
+    const toolMatch = path.match(/^\/api\/tools\/preview\/(community|theprisons|sky-supra)\/(moderation|automod|event)$/);
+    if (toolMatch && method === 'POST') {
+        let settings;
+        try { settings = JSON.parse(options.body); } catch { return previewResponse({detail:'Ungültige Werkzeug-Vorschau.'},400); }
+        if (!settings || typeof settings !== 'object' || Array.isArray(settings)) return previewResponse({detail:'Werkzeugeinstellungen fehlen.'},400);
+        const [, scope, tool] = toolMatch;
+        return previewResponse({schema:'nexora-pages-tool-preview-v1',scope,module:'tool-'+tool,revision:0,
+            simulation:true,live_apply_available:false,
+            blocking:['Design-Vorschau: Serverzugriff, Berechtigungen und Modulfreigabe wurden nicht geprüft.'],
+            changes:[{action:tool,settings}],notes:['Keine Discord-Aktion. Für eine echte geprüfte Freigabe mit Discord anmelden.']});
+    }
     if (path.startsWith('/api/releases/')) return previewResponse({detail:'Für echte Release-Daten mit Discord anmelden.'},503);
     if (path === '/api/backup') {
         const drafts=[];
