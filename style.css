@@ -6,3 +6,6 @@ details{margin:16px 0;color:var(--muted);font-size:12px}summary{cursor:pointer;c
 #overview>.panel{margin-top:22px}.preview-row small{display:block;color:var(--muted);margin-top:5px;line-height:1.5}.preview-row b{white-space:nowrap}.field select{cursor:pointer}
 
 .organizer-profile{border:1px solid #33404d;border-radius:20px;overflow:hidden;margin:0 0 24px;background:#101720}.organizer-profile picture{display:block}.organizer-profile img{display:block;width:100%;height:auto}.organizer-footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 22px;border-top:1px solid #263440;color:#eac67a}.organizer-footer small{color:#afbccb}
+
+.workspace{min-width:0}.organizer-profile,.organizer-profile picture{min-width:0;max-width:100%}.organizer-profile img{max-width:100%}
+
