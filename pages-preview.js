@@ -25,6 +25,17 @@ window.nexoraPreviewRequest = async (path, options = {}) => {
         return previewResponse({ok: true});
     }
     if (path === '/api/status') return previewResponse({health: {status: 'unknown', age_seconds: null, latency_ms: null}, live_changes_enabled: false, modules, scopes: ['community', 'theprisons', 'sky-supra']});
+    if (path === '/api/operations') return previewResponse({presence:'mastering NEXORA',checks:[{name:'Design-Vorschau',ready:true,detail:'Daten liegen nur in diesem Browser'},{name:'Live-Verbindung',ready:false,detail:'Für echte Daten mit Discord anmelden'}]});
+    if (path === '/api/tickets') return previewResponse({available:false,tickets:[],reason:'Private Tickets sind nur im geschützten Dashboard zugänglich.'});
+    if (path.startsWith('/api/releases/')) return previewResponse({detail:'Für echte Release-Daten mit Discord anmelden.'},503);
+    if (path === '/api/backup') {
+        const drafts=[];
+        for(const scope of ['community','theprisons','sky-supra']) for(const module of Object.keys(modules)) {
+            const saved=JSON.parse(localStorage.getItem(storagePrefix+scope+':'+module)||'null');
+            if(saved) drafts.push(saved);
+        }
+        return previewResponse({schema:'nexora-browser-preview-backup-v1',simulation:true,drafts});
+    }
     if (path === '/api/server') return previewResponse({available: false, reason: 'Diese öffentliche Vorschau ist mit keinem Discord-Server verbunden.', roles: [], channels: []});
     if (path === '/api/audit') {
         return previewResponse(JSON.parse(localStorage.getItem(storagePrefix + 'audit') || '[]'));
