@@ -25,7 +25,7 @@ und die erste Repository-Historie bleiben erhalten.
 ## Bot und Backend
 
 [Geprüfter Quellstand als Archiv](nexora-source.zip) enthält den Bot, das lokale
-OAuth-Dashboard und Tests mit separater Runtime-Konfiguration. 99 Tests bestanden.
+OAuth-Dashboard und Tests mit separater Runtime-Konfiguration. 113 Tests bestanden.
 Die Offline-Metadaten von ThePrisons sind ausdrücklich als Snapshot gekennzeichnet.
 Keine Credentials, Datenbanken oder Laufzeitdateien enthalten.
 
@@ -39,3 +39,8 @@ OAuth-Weiterleitung geprüft. Ein vollständiger Login mit einem echten Benutzer
 wurde noch nicht bestätigt. [Einrichtung und Einschränkungen](BACKEND-SETUP.md).
 Free-Hosting sperrt das Speichern, bis dauerhafter Datenspeicher eingerichtet ist.
 Die Design-Vorschau speichert ihre Beispiele weiterhin nur im jeweiligen Browser.
+
+
+## Betriebsfunktionen
+
+Ticketübersicht mit Mod-Filter, Release-Ansichten, Konfigurationsbackup und Verbindungsprüfung sind implementiert. Der Bot unterstützt den Spielstatus `mastering NEXORA`, einen Dashboard-Link bei `/status` und sichere Member-Autorollen. PostgreSQL und die ausgehende Windows-Agent-Verbindung sind vorbereitet; Datenbank und Verbindungsschlüssel müssen noch eingerichtet werden. Details und verbleibende Ausbaustufen: [FEATURES-SETUP.md](FEATURES-SETUP.md).
